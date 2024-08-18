@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -11,48 +11,15 @@ class JobController extends Controller
      */
     public function index()
     {
-        // $jobs= Job::get();
-       return view('index');
+        return view('jobs');
     }
 
-    public function about()
-    {
-        // $jobs= Job::get();
-       return view('about');
-    }
-
-    public function category()
-    {
-        // $jobs= Job::get();
-       return view('category');
-    }
-
-    
-    public function joblist()
-    {
-        // $jobs= Job::get();
-       return view('job-list');
-    }
-
-    public function testimonial()
-    {
-        // $jobs= Job::get();
-       return view('testimonial');
-    }
-
-    public function contact()
-    {
-        // $jobs= Job::get();
-       return view('contact');
-    }
-
-   
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('add_job');
     }
 
     /**
@@ -60,7 +27,7 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('add_job');
     }
 
     /**
@@ -68,7 +35,7 @@ class JobController extends Controller
      */
     public function show(string $id)
     {
-        return view('job-detail');
+        //
     }
 
     /**

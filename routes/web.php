@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\JobController;
+use App\Http\Controllers\PublicController;
+use App\Http\Controllers\Admin\JobController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,12 +9,19 @@ Route::get('/', function () {
 });
 
 Route::prefix('findjobs')->group(function () {
-Route::get('', [JobController::class, 'index'])->name('findjobs.index');
-Route::get('about', [JobController::class, 'about'])->name('findjobs.about');
-Route::get('category', [JobController::class, 'category'])->name('findjobs.category');
-Route::get('joblist', [JobController::class, 'joblist'])->name('findjobs.joblist');
-Route::get('jobdetail', [JobController::class, 'show'])->name('findjobs.show');
-Route::get('testimonial', [JobController::class, 'testimonial'])->name('findjobs.testimonial');
-Route::get('contact', [JobController::class, 'contact'])->name('findjobs.contact');
+Route::get('', [PublicController::class, 'index'])->name('findjobs.index');
+Route::get('about', [PublicController::class, 'about'])->name('findjobs.about');
+Route::get('category', [PublicController::class, 'category'])->name('findjobs.category');
+Route::get('joblist', [PublicController::class, 'joblist'])->name('findjobs.joblist');
+Route::get('jobdetail', [PublicController::class, 'show'])->name('findjobs.show');
+Route::get('testimonial', [PublicController::class, 'testimonial'])->name('findjobs.testimonial');
+Route::get('contact', [PublicController::class, 'contact'])->name('findjobs.contact');
+});
+
+Route::prefix('jobs')->group(function () {
+Route::get('', [JobController::class, 'index'])->name('jobs.index');  
+Route::get('create', [JobController::class, 'create'])->name('jobs.create');
+Route::get('', [JobController::class, 'store'])->name('jobs.store');
+
 
 });

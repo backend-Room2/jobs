@@ -43,8 +43,10 @@
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <div class="job-item p-4 mb-4">
                                 <div class="row g-4">
+
+                                    @foreach ($jobs as $job)
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid border rounded" src="{{asset('assets/img/com-logo-1.jpg')}}" alt="" style="width: 80px; height: 80px;">
+                                        <img class="flex-shrink-0 img-fluid border rounded" src="{{asset('assets/img/{{$job['image']}}')}}" alt="" style="width: 80px; height: 80px;">
                                         <div class="text-start ps-4">
                                             <h5 class="mb-3">Software Engineer</h5>
                                             <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>New York, USA</span>
@@ -60,8 +62,10 @@
                                         <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: 01 Jan, 2045</small>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
-                            <div class="job-item p-4 mb-4">
+
+                            {{-- <div class="job-item p-4 mb-4">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
                                         <img class="flex-shrink-0 img-fluid border rounded" src="{{asset('assets/img/com-logo-2.jpg')}}" alt="" style="width: 80px; height: 80px;">
@@ -140,7 +144,7 @@
                                         <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: 01 Jan, 2045</small>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>
                         </div>
                         <div id="tab-2" class="tab-pane fade show p-0">
