@@ -26,6 +26,7 @@ return new class extends Migration
             $table->boolean('featured');
             $table->string('time');
             $table->date('dateline');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

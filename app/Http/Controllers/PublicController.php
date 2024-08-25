@@ -9,7 +9,11 @@ class PublicController extends Controller
 {
     public function index(){
 
-        return view('public.pages.index');
+       // $jobs= Jobdata::get();
+       $jobs = Jobdata::all();
+    //    dd($jobs);
+        return view('public.pages.index', compact('jobs'));
+       
     }
 
     public function about(){
@@ -49,9 +53,8 @@ class PublicController extends Controller
 
     public function show(string $id)
     {
-        $job= Jobdata::findOrFail($id);
+        $job= Jobdata::where('published', '=', 1)->find($id);
         return view('public.pages.job-detail', compact('job'));
     }
 
- 
 }

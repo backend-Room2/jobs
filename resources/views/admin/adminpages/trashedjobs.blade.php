@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All Jobs</title>
+  <title>Trashed Jobs</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">All Jobs</h2>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">Trashed Jobs</h2>
         <table class="table table-hover">
           <thead>
             <tr class="table-dark">
@@ -34,8 +34,8 @@
               <th scope="col">Salary To</th>
               <th scope="col">Published</th>
               <th scope="col">Time</th>
-              <th scope="col">Edit</th>
-              <th scope="col">Delete</th>
+              <th scope="col">Restore</th>
+              <th scope="col">Permenant Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -48,14 +48,18 @@
               <td>{{$job['salaryTo']}}</td>
               <td>@if($job['published']==1) yes @else no @endif</td>
               <td>{{$job['time']}}</td> 
-              <td><a href="{{route('jobs.edit',$job['id'])}}">Edit</a></td>
-              <td><form action="{{route('jobs.destroy',$job['id'])}}" method="post">
+              <td><form action="{{ route('jobs.restore',$job['id'])}}" method="post">
+                   @csrf
+                   @method('patch')
+                   <button type="submit" class="btn btn-link m-0 p-0">Restore</button>
+                   </form>
+                  </td>
+                  <td><form action="{{ route('jobs.forcedelete',$job['id'])}}" method="post">
                    @csrf
                    @method('DELETE')
                    <button type="submit" class="btn btn-link m-0 p-0">Delete</button>
                    </form>
-                    </td>
-           
+                  </td>
              </tr>
             @endforeach
           
