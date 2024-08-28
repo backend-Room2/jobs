@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories= Category::get();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -56,7 +57,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories= Category::findOrFail($id);
+        return view('admin.categories.edit', compact('categories'));
     }
 
     /**
@@ -64,7 +66,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category = $request-> validate (['category_name'=>'required|string|max:100',
+                                          'image'=>'mimes:jpeg,jpg,png,gif',
+                                          'no_of_vacancy' => 'required|integer'
+                        ]);
+
+        if ($request->hasFile('image')) {
+          $category['image'] = $this->uploadFile($request->image, 'assets/img/categories');
+                     } 
+        Category::where('id', $id)->update($category);
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -72,6 +83,30 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Category::where('id', $id)->delete();
+
+        return redirect()->route('categories.index');
+    }
+
+    public function showDeleted()
+    {
+        $categories= Category::onlyTrashed()->get();
+
+        return view('admin.categories.showDeleted', compact('categories'));
+    }
+
+    public function restore(string $id)
+    {
+        Category::where('id', $id)->restore();
+
+        return redirect()->route('categories.showDeleted');
+    }
+
+    public function forcedelete(string $id)
+    {
+        //return "Delete car";
+        Category::where('id', $id)->forcedelete();
+
+        return redirect()->route('categories.index');
     }
 }

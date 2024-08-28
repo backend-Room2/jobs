@@ -11,9 +11,10 @@ class PublicController extends Controller
     public function index(){
 
        // $jobs= Jobdata::get();
+       $categories = Category::get();
        $jobs = Jobdata::all();
     //    dd($jobs);
-        return view('public.pages.index', compact('jobs'));
+        return view('public.pages.index', compact('jobs'), compact('categories'));
        
     }
 
@@ -57,6 +58,14 @@ class PublicController extends Controller
     {
         $job= Jobdata::where('published', '=', 1)->find($id);
         return view('public.pages.job-detail', compact('job'));
+    }
+
+    public function jobscategories()
+    {
+        $categories = Category::with(['jobs' => function ($query) { $query->where('published', 1)->take(3); }])->limit(4)->get();
+        // dd($categories);
+       // return view('public.pages.jobs_categories', compact('categories'));
+        return view('public.pages.jobs', compact('categories'));
     }
 
 }

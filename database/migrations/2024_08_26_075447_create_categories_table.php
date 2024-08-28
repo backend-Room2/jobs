@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('category_name')->unique();
             $table->string('image',2000);
             $table->Integer('no_of_vacancy');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
