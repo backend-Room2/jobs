@@ -61,7 +61,7 @@ class PublicController extends Controller
     }
     public function jobs_categories(){
 
-        $categories = Category::with(['jobs' => function ($query) { $query->where('published', 1)->take(7); }])->limit(4)->get();
+        $categories = Category::with(['jobs' => function ($query) { $query->where('published', 1)->take(3); }])->limit(4)->get();
         // dd($categories);
         return view('public.pages.jobs_categories', compact('categories'));
     }
