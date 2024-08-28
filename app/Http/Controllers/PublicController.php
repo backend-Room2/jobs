@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Jobdata;
 
@@ -23,7 +24,8 @@ class PublicController extends Controller
 
     public function category(){
 
-        return view('public.pages.category');
+        $categories = Category::get();
+        return view('public.pages.category', compact('categories'));
     }
 
     public function jobdetail(){

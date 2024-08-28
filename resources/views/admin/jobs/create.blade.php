@@ -98,6 +98,7 @@
               @enderror
             </div>
           </div>
+
           <div class="form-group mb-3 row">
           <label for="" class="form-label col-md-2 fw-bold text-md-end">Select Image:</label>
           <div class="col-md-10">
@@ -108,6 +109,7 @@
           @enderror
 			</div>
          </div>
+         
           <hr>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Published:</label>
@@ -138,28 +140,40 @@
            </select>
           </div>-->
           <div class="form-group mb-3 row">
-            <div class="col-md-10">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Time</label> 
-            <select name="time" id="time" required> 
+            <div class="col-md-10">
+            <select name="time" id="time" required class="form-control"> 
               <option value="full-time" {{ old('time') == 'full-time' ? 'selected' : '' }}>Full-Time</option> 
               <option value="part-time" {{ old('time') == 'part-time' ? 'selected' : '' }}>Part-Time</option> 
             </select>
             </div>
           </div>
 
-        
+          <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">Category</label> 
+            <div class="col-md-10">
+            <select name="category_id" id="" required class="form-control" value="{{old('category_id')}}"> 
+              <option value="">Select Category</option> 
+              @foreach($categories as $category)
+              <option value="{{$category->id}}" @selected(old('category_id')==$category->id)>{{$category->category_name}}</option>
+                @endforeach
+            </select>
+            @error('category_id')
+                <div class="alert alert-warning">{{$message}}</div>
+              @enderror
+            </div>
+          </div>
 
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Date Line:</label>
             <div class="col-md-10">
-              <input type="date" placeholder="Enter date line" name="dateline" value="{{old('dateline')}}"/>
+              <input type="date" class="form-control" placeholder="Enter date line" name="dateline" value="{{old('dateline')}}"/>
               @error('dateline')
               <div class="alert alert-warning">{{$message}}</div>
               @enderror
             </div>
           </div>
-         
-
+        
           <div class="text-md-end">
             <button class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
               Add Job

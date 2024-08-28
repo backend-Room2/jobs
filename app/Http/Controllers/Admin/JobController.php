@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\traits\Common;
+use App\Traits\Common;
+use App\Models\Category; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,7 @@ class JobController extends Controller
     public function index()
     {
         $jobs=Jobdata::get();
-        return view('admin/adminpages/jobs', compact('jobs'));
+        return view('admin.jobs.index', compact('jobs'));
     }
 
     /**
@@ -26,7 +27,8 @@ class JobController extends Controller
      */
     public function create()
     {
-        return view('admin/adminpages/add_job');
+        $categories= Category::select('id','category_name')->get();
+        return view('admin.jobs.create', compact('categories'));
     }
 
     /**
@@ -47,8 +49,9 @@ class JobController extends Controller
                                      'featured'=>'boolean',
                                      'time'=>'required|in:part-time,full-time',
                                      'dateline'=>'required|date',
+                                     'category_id'=>'required|exists:categories,id',
                           ]);
-        $job['image']=$this->uploadFile($request->image, 'admin/assets/images/jobs'); 
+        $job['image']=$this->uploadFile($request->image, 'assets/img/jobs'); 
         Jobdata::create($job);
 
        // return "data entered successfully";
@@ -64,8 +67,9 @@ class JobController extends Controller
        $job = DB::table('jobdatas')
         ->where('id', '=', $id)
         ->first();
+        // requires modification
 
-        return view('public.pages.job-detail', compact('job'));
+        return view('admin.jobs.jobdetails', compact('job'));
     }
 
     /**
@@ -73,9 +77,10 @@ class JobController extends Controller
      */
     public function edit(string $id)
     {
-        $jobs= Jobdata::findOrFail($id);
 
-        return view('admin/adminpages/edit_job', compact('jobs'));
+        $categories= Category::select('id','category_name')->get();
+        $jobs= Jobdata::findOrFail($id);
+        return view('admin.jobs.edit', compact('jobs'), compact('categories'));
     }
 
     /**
@@ -98,7 +103,7 @@ class JobController extends Controller
                                      'dateline'=>'required|date',
                               ]);
         if ($request->hasFile('image')) {
-                $job['image'] = $this->uploadFile($request->image, 'admin/assets/images/jobs');
+                $job['image'] = $this->uploadFile($request->image, 'assets/img/jobs');
          }        
          
          Jobdata::where('id', $id)->update($job);
@@ -122,7 +127,7 @@ class JobController extends Controller
     {
         $jobs= Jobdata::onlyTrashed()->get();
 
-        return view('admin/adminpages/trashedjobs', compact('jobs'));
+        return view('admin.jobs.showDeleted', compact('jobs'));
     }
 
     public function restore(string $id)

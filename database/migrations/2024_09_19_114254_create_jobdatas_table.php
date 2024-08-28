@@ -13,19 +13,21 @@ return new class extends Migration
     {
         Schema::create('jobdatas', function (Blueprint $table) {
             $table->id();
-            $table->string('jobtitle', 100);
+            $table->string('jobTitle', 100);
+            $table->string('location', 100);
             $table->text('description');
-            $table->text('responsability');
+            $table->text('responsibility');
             $table->text('qualifications');
             $table->text('companydetail');
-            $table->string('location');
-            $table->float('salaryfrom');
-            $table->float('salaryto');
-            $table->boolean('time');
-            $table->date('dateline');
-            $table->string('image');
-            $table->boolean('featured');
+            $table->float('salaryFrom');
+            $table->float('salaryTo');
+            $table->string('image',2000);
             $table->boolean('published');
+            $table->boolean('featured');
+            $table->string('time');
+            $table->date('dateline');
+            $table->foreignId('category_id')->constrained('categories')->unique();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

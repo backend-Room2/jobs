@@ -34,6 +34,7 @@
               <th scope="col">Salary To</th>
               <th scope="col">Published</th>
               <th scope="col">Time</th>
+              <th scope="col">Category Name</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
             </tr>
@@ -48,6 +49,7 @@
               <td>{{$job['salaryTo']}}</td>
               <td>@if($job['published']==1) yes @else no @endif</td>
               <td>{{$job['time']}}</td> 
+              <td> {{$job->category->category_name}}</td>
               <td><a href="{{route('jobs.edit',$job['id'])}}">Edit</a></td>
               <td><form action="{{route('jobs.destroy',$job['id'])}}" method="post">
                    @csrf

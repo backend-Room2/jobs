@@ -1,7 +1,6 @@
-
 @extends('public.layouts.main')
-
 @section('content')
+
 
         <!-- Header End -->
         <div class="container-xxl py-5 bg-dark page-header mb-5">
@@ -34,6 +33,6 @@
             </div>
         </div>
         <!-- 404 End -->
- @endsection
-        
 
+        
+@endsection
