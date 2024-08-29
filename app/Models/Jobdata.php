@@ -11,20 +11,24 @@ class Jobdata extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable =[
-        'jobtitle',
+    protected $fillable=[
+        'jobTitle',
+        'location',
         'description',
-        'responsability',
+        'responsibility',
         'qualifications',
         'companydetail',
-        'salaryfrom',
-        'salaryto',
-        'fulltime',
-        'dateline',
+        'salaryFrom',
+        'salaryTo',
         'image',
-        'featured',
         'published',
+        'featured',
+        'time',
+        'dateline',
+        'category_id',
     ];
 
-
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
 }

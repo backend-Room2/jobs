@@ -2,97 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Jobdata;
 
 class PublicController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        // $jobs= Job::get();
-       return view('index');
+    public function index(){
+
+       // $jobs= Jobdata::get();
+       $categories = Category::get();
+       $jobs = Jobdata::all();
+    //    dd($jobs);
+        return view('public.pages.index', compact('jobs'), compact('categories'));
+       
     }
 
-    public function about()
-    {
-        // $jobs= Job::get();
-       return view('about');
+    public function about(){
+
+        return view('public.pages.about');
     }
 
-    public function category()
-    {
-        // $jobs= Job::get();
-       return view('category');
+    public function category(){
+
+        $categories = Category::get();
+        return view('public.pages.category', compact('categories'));
     }
 
-    
-    public function joblist()
-    {
-        // $jobs= Job::get();
-       return view('job-list');
+    public function jobdetail(){
+
+        return view('public.pages.job-detail');
     }
 
-    public function testimonial()
-    {
-        // $jobs= Job::get();
-       return view('testimonial');
+    public function joblist(){
+
+        return view('public.pages.job-list');
     }
 
-    public function contact()
-    {
-        // $jobs= Job::get();
-       return view('contact');
+    public function contact(){
+
+        return view('public.pages.contact');
     }
 
-   
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function testimonial(){
+
+        return view('public.pages.testimonial');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function page404(){
+
+        return view('public.pages.page404');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show()
-    // public function show(string $id)
+    public function show(string $id)
     {
-        return view('job-detail');
+        $job= Jobdata::where('published', '=', 1)->find($id);
+        return view('public.pages.job-detail', compact('job'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function jobscategories()
     {
-        //
+        $categories = Category::with(['jobs' => function ($query) { $query->where('published', 1)->take(3); }])->limit(4)->get();
+        // dd($categories);
+       // return view('public.pages.jobs_categories', compact('categories'));
+        return view('public.pages.jobs', compact('categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
